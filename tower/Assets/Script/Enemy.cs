@@ -39,6 +39,7 @@ public class Enemy : MonoBehaviour
         GameObject effect = (GameObject)Instantiate(deathEffect, transform.position, Quaternion.identity);
         Destroy(effect, 5f);
         PlayerStats.Money += moneyGain;
+        
         Destroy(gameObject);
     }
 
