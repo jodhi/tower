@@ -12,20 +12,33 @@ public class Wave_Spanner : MonoBehaviour {
     public Text waveCountdownText;
 
     public float timeBetweenWaves = 3f;
-    private float countdown = 2f;
+    private float countdown = 0f;
 
     private int waveIndex = 0;
 
     void Update()
     {
+        if (Mathf.Floor(countdown).ToString() == "0")
+        {
+            waveCountdownText.text = "Wave Coming";
+        }
+        else
+        {
+            waveCountdownText.text = "New Wave In " + Mathf.Floor(countdown).ToString();
+        }
+        
         if (countdown <= 0f)
         {
             StartCoroutine(SpanWave());
             countdown = timeBetweenWaves;
         }
-        countdown -= Time.deltaTime;
+        else
+        {
+            countdown -= Time.deltaTime;
+        }
+        
 
-        waveCountdownText.text = "New Wave In "+Mathf.Floor(countdown).ToString();
+        
     }
     IEnumerator SpanWave()
     {
