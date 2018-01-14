@@ -6,6 +6,9 @@ public class Peluru : MonoBehaviour {
     private Transform target;
 
     public float speed = 70f;
+
+    public int damage = 50;
+
     public float explosionRadius = 0f;
     public GameObject EfekPeluru;
 
@@ -67,7 +70,11 @@ public class Peluru : MonoBehaviour {
 
     void Damage(Transform enemy)
     {
-        Destroy(enemy.gameObject);
+        Enemy e = enemy.GetComponent<Enemy>();
+        if (e != null)
+        {
+            e.TakeDamage(damage);
+        }
     }
 
     void OnDrawGizmosSelected()

@@ -5,12 +5,24 @@ using UnityEngine;
 public class Turret : MonoBehaviour {
 
     private Transform target;
+    private Enemy targetEnemy;
 
-    [Header("Attributes")]
+
+    [Header("General")]
 
     public float range = 15f;
+
+    [Header("Use Bullets (Default)")]
+    public GameObject peluruPrefab;
     public float fireRate = 1f;
     private float fireCountdown = 0f;
+
+    [Header("Use Laser")]
+    public bool useLaser = false;
+    public float slowAmount = 0.3f;
+    public int damageOverTime = 30;
+    public LineRenderer lineRenderer;
+
 
     [Header("Unity Setup Fields")]
 
@@ -19,7 +31,7 @@ public class Turret : MonoBehaviour {
     public Transform Head;
     public float turnSpeed = 10f;
 
-    public GameObject peluruPrefab;
+    
     public Transform firePoint;
 
 	// Use this for initialization
@@ -45,31 +57,64 @@ public class Turret : MonoBehaviour {
         if (nearestEnemy !=null && shortestDistance <= range)
         {
             target = nearestEnemy.transform;
+            targetEnemy = nearestEnemy.GetComponent<Enemy>();
         }else
         {
             target = null;
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
         if (target == null)
+        {
+            if (useLaser)
+            {
+                if (lineRenderer.enabled)
+                    lineRenderer.enabled = false;
+            }
             return;
+        }
+        
         //ngunci target
+        LockOnTarget();
+
+        if (useLaser)
+        {
+            Laser();
+        }
+        else
+        {
+
+            if (fireCountdown <= 0f)
+            {
+                Shoot();
+                fireCountdown = 1f / fireRate;
+            }
+
+            fireCountdown -= Time.deltaTime;
+
+        }
+    }
+    void LockOnTarget()
+    {
         Vector3 dir = target.position - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(dir);
         Vector3 rotation = Quaternion.Lerp(Head.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
-        Head.rotation = Quaternion.Euler (0f, rotation.y, 0f);
+        Head.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+    }
 
-        if(fireCountdown <= 0f)
-        {
-            Shoot();
-            fireCountdown = 1f / fireRate;
-        }
+    void Laser()
+    {
+        targetEnemy.GetComponent<Enemy>().TakeDamage(damageOverTime * Time.deltaTime);
+        targetEnemy.Slow(slowAmount);
 
-        fireCountdown -= Time.deltaTime;
-	}
-
+        if (!lineRenderer.enabled)
+            lineRenderer.enabled = true;
+        lineRenderer.SetPosition(0, firePoint.position);
+        lineRenderer.SetPosition(1, target.position);
+    }
     void Shoot()
     {
         GameObject peluruGO = (GameObject)Instantiate(peluruPrefab, firePoint.position, firePoint.rotation);
@@ -84,4 +129,6 @@ public class Turret : MonoBehaviour {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, range);
     }
+
+
 }

@@ -2,8 +2,9 @@
 
 public class Shop : MonoBehaviour {
 
-    public TurretBlueprint turet1;
-    public TurretBlueprint turet2;
+    public TurretBlueprint StandardTurret;
+    public TurretBlueprint MisileLauncher;
+    public TurretBlueprint LaserBeamer;
 
     BuildManager buildManager;
 
@@ -12,16 +13,21 @@ public class Shop : MonoBehaviour {
         buildManager = BuildManager.instance;
     }
 
-    public void SelectTuret1()
+    public void SelectStandardTurret()
     {
-        Debug.Log("Turet 1 telah dipilih");
-        buildManager.SelectTurretToBuild(turet1);
+        Debug.Log("Standard Turret Telah Dipilih");
+        buildManager.SelectTurretToBuild(StandardTurret);
     }
 
-    public void SelectTuret2()
+    public void SelectMisileLauncher()
     {
-        Debug.Log("Turet 2 telah dipilih");
-        buildManager.SelectTurretToBuild(turet2);
+        Debug.Log("Misile Launcher Telah Dipilih");
+        buildManager.SelectTurretToBuild(MisileLauncher);
     }
 
+    public void SelectLaserBeamer()
+    {
+        Debug.Log("Laser Beamer Telah Dipilih");
+        buildManager.SelectTurretToBuild(LaserBeamer);
+    }
 }
