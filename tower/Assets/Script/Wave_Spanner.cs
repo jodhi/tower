@@ -42,6 +42,8 @@ public class Wave_Spanner : MonoBehaviour {
     }
     IEnumerator SpanWave()
     {
+        waveIndex++;
+        PlayerStats.Rounds++;
         for (int i = 0; i < waveIndex; i++)
         {
             SpawnEnemy();
