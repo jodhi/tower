@@ -38,4 +38,9 @@ public class PausedMenu : MonoBehaviour {
         Toggle();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+    public void Menu()
+    {
+        Toggle();
+        SceneManager.LoadScene("MainMenu");
+    }
 }
