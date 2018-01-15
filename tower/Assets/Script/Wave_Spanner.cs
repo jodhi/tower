@@ -14,7 +14,7 @@ public class Wave_Spanner : MonoBehaviour {
     public float timeBetweenWaves = 3f;
     private float countdown = 0f;
 
-    private int waveIndex = 0;
+    public int waveIndex = 0;
 
     void Update()
     {

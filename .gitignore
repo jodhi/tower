@@ -32,3 +32,6 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+tower/Library/assetDatabase3
+tower/Library/CurrentLayout.dwlt
+tower/Library/metadata/00/00000000000000005100000000000000

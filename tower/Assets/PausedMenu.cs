@@ -24,7 +24,7 @@ public class PausedMenu : MonoBehaviour {
 
         if (ui.activeSelf)
         {
-            Time.timeScale = 0f;
+            
 
         }
         else

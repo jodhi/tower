@@ -21,6 +21,8 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
+        starthealth += PlayerStats.Rounds * 10;
+        Debug.Log(starthealth);
         speed = startSpeed;
         health = starthealth;
     }

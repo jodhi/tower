@@ -36,7 +36,7 @@ public class NodeUI : MonoBehaviour {
 
     public void Hide()
     {
-        ui.SetActive(false)
+        ui.SetActive(false);
     }
 
     public void Upgrade()
